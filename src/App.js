@@ -3,6 +3,9 @@ import './App.css';
 import { IoPlay, IoPause, IoPlayBack, IoPlayForward } from "react-icons/io5";
 import LiquidGlass from 'liquid-glass-react';
 import authorTxtUrl from './music/author.txt';
+import { Fade } from 'react-awesome-reveal';
+import { TypeAnimation } from 'react-type-animation';
+
 // TODO
 // 현재 진행중인 노래에 맞춰 타이틀 변경
 // height 줄이기
@@ -11,12 +14,12 @@ import authorTxtUrl from './music/author.txt';
 
 
 
-// music 디렉토리의 모든 mp3 파일을 동적으로 불러오기
-const musicContext = require.context('./music', false, /\.mp3$/);
+// music 디렉토리의 모든 오디오 파일을 동적으로 불러오기 (mp3, wav)
+const musicContext = require.context('./music', false, /\.(mp3|wav)$/);
 
-// 파일명에서 트랙 이름 추출 (예: "01.Bittersweet.mp3" -> "Bittersweet")
+// 파일명에서 트랙 이름 추출 (예: "01.Bittersweet.mp3" -> "Bittersweet", "05.Paint.wav" -> "Paint")
 const getTrackName = (filename) => {
-  const name = filename.replace(/^\d+\./, '').replace(/\.mp3$/, '');
+  const name = filename.replace(/^\d+\./, '').replace(/\.(mp3|wav)$/, '');
   return name || filename;
 };
 
@@ -45,7 +48,9 @@ function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [authors, setAuthors] = useState([]);
+  const [showIntro, setShowIntro] = useState(true);
   const audioRef = useRef(null);
+  // setIsPlaying(true);
 
   useEffect(() => {
     // music/author.txt: 한 줄 = 한 곡의 "주인(부른 사람)" (트랙 순서대로)
@@ -71,6 +76,7 @@ function App() {
     if (!audio) return;
 
     const handleCanPlay = () => {
+      // 인트로가 보이는 동안에도 재생 시작
       audio.play().then(() => {
         setIsPlaying(true);
       }).catch((error) => {
@@ -85,6 +91,25 @@ function App() {
       audio.removeEventListener('canplay', handleCanPlay);
     };
   }, [currentTrack]);
+
+  // 컴포넌트 마운트 시 즉시 재생 시작 (인트로와 동시에)
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // 약간의 지연 후 재생 시도 (오디오 로드 시간 확보)
+    const timer = setTimeout(() => {
+      if (audio.readyState >= 2) { // HAVE_CURRENT_DATA 이상
+        audio.play().then(() => {
+          setIsPlaying(true);
+        }).catch((error) => {
+          console.log('초기 재생 실패:', error);
+        });
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -177,12 +202,60 @@ function App() {
 
   useEffect(() => {
     // 탭(웹사이트) 타이틀: "● 범람 곡제목 - 부른사람"
-    document.title = trackTitle ? `${trackTitle} - ${currentAuthor} ● 범람` : '● 범람';
+    // handlePlayPause();
+    document.title = trackTitle ? `${trackTitle} - ${currentAuthor} ㆍ 범람` : 'ㆍ 범람';
   }, [trackTitle, currentAuthor]);
+
+  // 인트로 자동 종료 (페이드아웃 완료 후)
+  useEffect(() => {
+    if (showIntro) {
+      const timer = setTimeout(() => {
+        // 인트로가 끝날 때 재생이 안 되어 있으면 재생 시도 (모바일 대응)
+        const audio = audioRef.current;
+        if (audio && audio.paused && !isPlaying) {
+          audio.play().then(() => {
+            setIsPlaying(true);
+          }).catch((error) => {
+            console.log('인트로 종료 후 재생 실패:', error);
+          });
+        }
+        setShowIntro(false);
+      }, 8800); // 6.8초(페이드아웃 시작) + 2초(페이드아웃 지속) = 8.8초
+      return () => clearTimeout(timer);
+    }
+  }, [showIntro, isPlaying]);
+
+  const handleIntroClick = () => {
+    // 모바일에서 사용자 상호작용 후 재생 시작
+    const audio = audioRef.current;
+    if (audio && audio.paused) {
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch((error) => {
+        console.log('인트로 클릭 후 재생 실패:', error);
+      });
+    }
+    setShowIntro(false);
+  };
 
   return (
     <div className="App">
-      <div className="liquid-wrap">
+      {showIntro && (
+        <div className="intro-screen"> 
+          <div className="intro-content">
+            <TypeAnimation sequence={[
+              'TTL 14th album',
+            ]} wrapper="div" className="intro-text" speed={20} delay={500} />
+            <div className="intro-title">
+              <Fade cascade delay={2400} damping={0.5} duration={2000}>
+                <div>氾</div>
+                <div>濫</div>
+              </Fade> 
+            </div>
+          </div>
+        </div>
+      )}
+      <div className={`liquid-wrap ${showIntro ? 'hidden' : ''}`}>
         <LiquidGlass
           className="player-container"
           displacementScale={70}
@@ -196,6 +269,7 @@ function App() {
           style={{ position: 'absolute', top: '50%', left: '50%' }}
           padding="var(--player-pad)"
         >
+          <div className="watermark">氾<br />濫</div>
           <div className="player-content">
             <audio
               ref={audioRef}
@@ -212,7 +286,10 @@ function App() {
               <div className="track-name">{currentTrackData?.name}</div>
               <div className="artist-name">{currentAuthor}</div>
             </div>
-
+            <div className="progress-time">
+                <span>{formatTime(currentTime)}</span>
+                <span>{formatTime(duration)}</span>
+              </div>
             <div className="progress">
               <input
                 className="progress-range"
@@ -224,10 +301,7 @@ function App() {
                 onChange={handleSeek}
                 aria-label="재생 위치"
               />
-              <div className="progress-time">
-                <span>{formatTime(currentTime)}</span>
-                <span>{formatTime(duration)}</span>
-              </div>
+
             </div>
 
             <div className="controls">

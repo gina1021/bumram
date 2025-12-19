@@ -12,6 +12,96 @@
   padding: 0;
 }
 
+.watermark {
+  position: absolute;
+  top: clamp(5px, 1.5vh, 15px);
+  right: clamp(5px, 1.5vw, 15px);
+  z-index: 10;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  user-select: none;
+  text-align: center;
+}
+
+.intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  animation: fadeOut 2s ease-out 6.8s forwards;
+}
+
+.intro-content {
+  text-align: center;
+}
+
+.intro-text {
+  font-size: clamp(14px, 5vw, 18px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.1em;
+  margin-bottom: clamp(8px, 2vh, 16px);
+  font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
+  /* opacity: 0; */
+  /* animation: fadeInUp 1s ease 0.8s forwards; */
+}
+
+.intro-title {
+  font-size: clamp(32px, 15vw, 64px);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
+  line-height: 1.4;
+}
+
+.intro-title > div > div {
+  display: block;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.liquid-wrap.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.liquid-wrap {
+  /* transition: opacity 0.6s ease-in; */
+}
+
 .liquid-wrap {
   /* "고정된 느낌"을 없애기 위해 fixed를 제거하고,
      iOS Safari에서도 안정적인 뷰포트 높이를 위해 dvh를 사용 */
@@ -63,11 +153,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 90dvh;
+  position: relative;
   /* gap: clamp(14px, 1vh, 20px); */
 
   /* liquid-glass-react가 내부에 inline font를 주기 때문에 UI 폰트/레이아웃은 여기서 다시 고정 */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
@@ -80,8 +171,8 @@
 .album-art {
   position: relative;
   margin-top: clamp(6px, 1.2vh, 12px);
-  width: min(52vw, 240px);
-  height: min(52vw, 240px);
+  width: 75%;
+  aspect-ratio: 1;
   border-radius: 5%;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -140,10 +231,10 @@
 }
 
 .track-name {
-  font-size: clamp(20px, 4.2vw, 28px);
+  font-size: clamp(20px, 4.2vw, 24px);
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 1vh;
+  margin-bottom: 0.5vh;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -155,10 +246,13 @@
 
 .progress {
   width: 100%;
-  margin-top: clamp(6px, 1.2vh, 10px);
+  margin-top: clamp(6px, 1vh, 18px);
   display: flex;
   flex-direction: column;
   gap: clamp(6px, 1vh, 10px);
+  padding-left: clamp(10px, 1vh, 14px);
+  padding-right: clamp(10px, 1vh, 14px);
+  box-sizing: border-box;
 }
 
 .progress-range {
@@ -193,6 +287,8 @@
 }
 
 .progress-time {
+  padding-left: clamp(10px, 1vh, 14px);
+  padding-right: clamp(10px, 1vh, 14px);
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -232,8 +328,8 @@
 }
 
 .play-pause-btn {
-  width: clamp(58px, 14vw, 80px);
-  height: clamp(58px, 14vw, 80px);
+  /* width: clamp(58px, 9vw, 80px);
+  height: clamp(58px, 9vw, 80px); */
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.0);
   /* backdrop-filter: blur(10px); */
@@ -277,8 +373,12 @@
   /* background: rgba(255, 255, 255, 0.14); */
   /* border: 1px solid rgba(255, 255, 255, 0.25); */
   border-radius: clamp(16px, 5vw, 24px);
-  padding: clamp(10px, 1.8vh, 14px);
+  padding: clamp(10px, 1vh, 14px);
   /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .playlist-title {
@@ -293,9 +393,10 @@
   display: flex;
   flex-direction: column;
   gap: clamp(4px, 1vh, 8px);
-  max-height: 12vh;
+  flex: 1;
   overflow: auto;
   padding-right: 4px;
+  min-height: 0;
 }
 
 .playlist-list::-webkit-scrollbar {
@@ -327,7 +428,24 @@
   cursor: pointer;
   transition: background-color 0.2s, transform 0.2s;
   color: rgba(255, 255, 255, 0.92);
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
 }
+
+/* 각 플레이리스트 아이템에 순차적인 delay 적용 (9.3초 후 시작, 0.2초 간격) */
+.playlist-item:nth-child(1) { animation-delay: 9.3s; }
+.playlist-item:nth-child(2) { animation-delay: 9.5s; }
+.playlist-item:nth-child(3) { animation-delay: 9.7s; }
+.playlist-item:nth-child(4) { animation-delay: 9.9s; }
+.playlist-item:nth-child(5) { animation-delay: 10.1s; }
+.playlist-item:nth-child(6) { animation-delay: 10.3s; }
+.playlist-item:nth-child(7) { animation-delay: 10.5s; }
+.playlist-item:nth-child(8) { animation-delay: 10.7s; }
+.playlist-item:nth-child(9) { animation-delay: 10.9s; }
+.playlist-item:nth-child(10) { animation-delay: 11.1s; }
+.playlist-item:nth-child(11) { animation-delay: 11.3s; }
+.playlist-item:nth-child(12) { animation-delay: 11.5s; }
+.playlist-item:nth-child(n+13) { animation-delay: 11.7s; }
 
 .playlist-item:hover {
   background: rgba(255, 255, 255, 0.10);
@@ -386,15 +504,15 @@
   }
 
   .player-container {
-    width: 92vw;
+    width: 84vw;
   }
 
   .album-art {
-    width: 60vw;
-    height: 60vw;
+    width: 70%;
+    aspect-ratio: 1;
   }
 
   .playlist-list {
-    max-height: 20vh;
+    max-height: 30vh;
   }
 }
