@@ -1,7 +1,8 @@
 {
   "files": {
-    "main.css": "/bumram/static/css/main.b1387761.css",
-    "main.js": "/bumram/static/js/main.928f08d8.js",
+    "main.css": "/bumram/static/css/main.ae60ab77.css",
+    "main.js": "/bumram/static/js/main.d6f73432.js",
+    "static/media/05.Paint.wav": "/bumram/static/media/05.Paint.7168901e5ca594887c32.wav",
     "static/media/cover.jpg": "/bumram/static/media/cover.02212a71ab4491623515.jpg",
     "static/media/10.youth.mp3": "/bumram/static/media/10.youth.1aac0159677899ac47f0.mp3",
     "static/media/01.Bittersweet.mp3": "/bumram/static/media/01.Bittersweet.107d0c38ebf395fbf0d9.mp3",
@@ -10,16 +11,18 @@
     "static/media/09.Balloon.mp3": "/bumram/static/media/09.Balloon.7ef5d4e4d4791bfffdee.mp3",
     "static/media/06.11 (17).mp3": "/bumram/static/media/06.11 (17).aece37d9c794b4152a39.mp3",
     "static/media/03.Nerdy.mp3": "/bumram/static/media/03.Nerdy.78c383b2f0df1ffab9f4.mp3",
-    "static/media/12.일상.mp3": "/bumram/static/media/12.일상.cc4dbec1bd55df05fd11.mp3",
+    "static/media/12.일상.mp3": "/bumram/static/media/12.일상.55e12a912abe8b5a1360.mp3",
     "static/media/02.너만 딱.mp3": "/bumram/static/media/02.너만 딱.0ee323868e17a3f93f1e.mp3",
     "static/media/08.Lost Memory.mp3": "/bumram/static/media/08.Lost Memory.5eec8a017c2c6849f4b4.mp3",
     "static/media/04.기차역에서.mp3": "/bumram/static/media/04.기차역에서.28a9bbce9a07aa07fc61.mp3",
+    "static/media/introduce.txt": "/bumram/static/media/introduce.6362fa77de3651d79443.txt",
     "index.html": "/bumram/index.html",
-    "main.b1387761.css.map": "/bumram/static/css/main.b1387761.css.map",
-    "main.928f08d8.js.map": "/bumram/static/js/main.928f08d8.js.map"
+    "static/media/author.txt": "/bumram/static/media/author.0d04ccfd75a5d04574bd.txt",
+    "main.ae60ab77.css.map": "/bumram/static/css/main.ae60ab77.css.map",
+    "main.d6f73432.js.map": "/bumram/static/js/main.d6f73432.js.map"
   },
   "entrypoints": [
-    "static/css/main.b1387761.css",
-    "static/js/main.928f08d8.js"
+    "static/css/main.ae60ab77.css",
+    "static/js/main.d6f73432.js"
   ]
 }
