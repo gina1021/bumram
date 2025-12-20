@@ -1,0 +1,344 @@
+.lyric-add-container {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
+}
+
+.lyric-add-header {
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: white;
+}
+
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.back-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.lyric-add-header h1 {
+  margin: 0;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+}
+
+.track-select-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.track-select-container label {
+  font-size: clamp(14px, 2vw, 16px);
+  color: white;
+  opacity: 0.9;
+}
+
+.track-select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: clamp(14px, 2vw, 16px);
+  font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.track-select:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.track-select:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.track-select option {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(76, 175, 80, 0.95);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  font-weight: 600;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+  font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.lyric-add-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+
+.player-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: -2vh;
+}
+
+.player-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  margin-top: -1vh;
+}
+
+.prev-lyric-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.prev-lyric-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.prev-lyric-btn:active {
+  transform: scale(0.95);
+}
+
+.prev-lyric-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.play-pause-btn-large {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0);
+  border: 2px solid rgba(255, 255, 255, 0);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.play-pause-btn-large:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.play-pause-btn-large:active {
+  transform: scale(0.95);
+}
+
+.play-pause-btn-large svg {
+  width: 40px;
+  height: 40px;
+}
+
+.time-display {
+  display: flex;
+  gap: 10px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: -1vh;
+  margin-bottom: -3vh;
+}
+
+.progress-bar-container {
+  margin-bottom: 30px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  /* margin-top: -2vh; */
+}
+
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+.progress-bar::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  cursor: pointer;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.save-btn,
+.reset-btn {
+  flex: 1;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
+  /* margin-top: -5vh; */
+  margin-bottom: -2vh;
+}
+
+.save-btn {
+  background: rgba(76, 175, 80, 0.3);
+}
+
+.save-btn:hover {
+  background: rgba(76, 175, 80, 0.5);
+  transform: translateY(-2px);
+}
+
+.reset-btn {
+  background: rgba(244, 67, 54, 0.3);
+}
+
+.reset-btn:hover {
+  background: rgba(244, 67, 54, 0.5);
+  transform: translateY(-2px);
+}
+
+.lyrics-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.lyrics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.lyric-line {
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.lyric-line:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateX(5px);
+}
+
+.lyric-line.synced {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: rgba(76, 175, 80, 0.5);
+}
+
+.timestamp {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 80px;
+  font-family: monospace;
+}
+
+.lyric-text {
+  color: white;
+  font-size: 14px;
+  line-height: 1.6;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .lyric-add-content {
+    grid-template-columns: 1fr;
+  }
+
+  .lyrics-section {
+    max-height: 60vh;
+  }
+}
+
